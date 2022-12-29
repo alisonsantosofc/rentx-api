@@ -7,6 +7,8 @@ export const postgresDataSource = new DataSource({
   username: "docker",
   password: "postgresdb",
   database: "autorenter_db",
+  entities: ["./src/modules/*/entities/*.ts"],
+  migrations: ["./src/database/migrations/*.ts"],
 });
 
 postgresDataSource
