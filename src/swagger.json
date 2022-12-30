@@ -11,7 +11,7 @@
   "paths": {
     "/categories": {
       "post": {
-        "tags": ["Category"],
+        "tags": ["Categories"],
         "summary": "Create Category",
         "description": "Create a new category.",
         "requestBody": {
@@ -37,15 +37,15 @@
         },
         "responses": {
           "201": {
-            "description": "Category created."
+            "description": "Created."
           },
-          "500": {
+          "400": {
             "description": "Category already exists."
           }
         }
       },
       "get": {
-        "tags": ["Category"],
+        "tags": ["Categories"],
         "summary": "List Categories",
         "description": "List all categories.",
         "responses": {
@@ -70,6 +70,74 @@
               }
             }
           }
+        }
+      }
+    },
+
+    "/categories/import": {
+      "post": {
+        "tags": ["Categories"],
+        "summary": "Upload Categories",
+        "description": "Upload categories from a csv file.",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "responses": {
+            "201": {
+              "description": "Created."
+            }
+          }
+        }
+      }
+    },
+
+    "/specifications": {
+      "post": {
+        "tags": ["Specifications"],
+        "summary": "Create Specification",
+        "description": "Create a new specification.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Specification"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created."
+          },
+          "400": {
+            "description": "Specification already exists."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Specification": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
         }
       }
     }
