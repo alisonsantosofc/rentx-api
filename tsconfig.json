@@ -3,16 +3,13 @@
     "target": "ES2020",
     "module": "commonjs",
     "outDir": "./dist",
-    // "rootDir": "./src",
     "baseUrl": "./src",
     "paths": {
       "@modules/*": ["modules/*"],
-      "@database/*": ["database/*"],
       "@middlewares/*": ["middlewares/*"],
       "@utils/*": ["utils/*"],
       "@config/*": ["config/*"],
-      "@shared/*": ["shared/*"],
-      "@errors/*": ["errors/*"]
+      "@shared/*": ["shared/*"]
     },
     "strict": false,
     "resolveJsonModule": true,
