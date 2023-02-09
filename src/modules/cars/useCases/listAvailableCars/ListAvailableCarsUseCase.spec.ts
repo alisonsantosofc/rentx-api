@@ -1,19 +1,20 @@
+import { Car } from "@modules/cars/infra/typeorm/entities/Car";
 import { CarsRepositoryInMemory } from "@modules/cars/repositories/inMemory/CarsRepositoryInMemory";
 
 import { ListAvailableCarsUseCase } from "./ListAvailableCarsUseCase";
 
 let carsRepositoryInMemory: CarsRepositoryInMemory;
 let listAvailableCarsUseCase: ListAvailableCarsUseCase;
+let car2: Car;
 
 describe("List Cars", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     carsRepositoryInMemory = new CarsRepositoryInMemory();
     listAvailableCarsUseCase = new ListAvailableCarsUseCase(
       carsRepositoryInMemory
     );
-  });
 
-  it("shold be able to list all available cars", async () => {
+    // create cars in memory before each
     await carsRepositoryInMemory.create({
       name: "Car1",
       description: "Description car.",
@@ -24,7 +25,7 @@ describe("List Cars", () => {
       category_id: "categoryId",
     });
 
-    await carsRepositoryInMemory.create({
+    car2 = await carsRepositoryInMemory.create({
       name: "Car2",
       description: "Description car.",
       brand: "Car Brand2",
@@ -32,6 +33,19 @@ describe("List Cars", () => {
       license_plate: "ABC-0002",
       fine_amount: 40,
       category_id: "categoryId2",
+    });
+  });
+
+  it("shold be able to list all available cars", async () => {
+    await carsRepositoryInMemory.create({
+      name: "Car3",
+      description: "Description car.",
+      brand: "Car Brand3",
+      daily_rate: 80,
+      license_plate: "ABC-0003",
+      fine_amount: 40,
+      category_id: "categoryId3",
+      available: false,
     });
 
     const cars = await listAvailableCarsUseCase.execute({});
@@ -40,86 +54,26 @@ describe("List Cars", () => {
   });
 
   it("shold be able to list all available cars by name", async () => {
-    await carsRepositoryInMemory.create({
-      name: "Car1",
-      description: "Description car.",
-      brand: "Car Brand",
-      daily_rate: 100,
-      license_plate: "ABC-0001",
-      fine_amount: 60,
-      category_id: "categoryId",
-    });
-
-    await carsRepositoryInMemory.create({
-      name: "Car2",
-      description: "Description car.",
-      brand: "Car Brand2",
-      daily_rate: 80,
-      license_plate: "ABC-0002",
-      fine_amount: 40,
-      category_id: "categoryId2",
-    });
-
     const cars = await listAvailableCarsUseCase.execute({
       name: "Car2",
     });
 
-    expect(cars.length).toBe(2);
+    expect(cars).toEqual([car2]);
   });
 
   it("shold be able to list all available cars by brand", async () => {
-    await carsRepositoryInMemory.create({
-      name: "Car1",
-      description: "Description car.",
-      brand: "Car Brand",
-      daily_rate: 100,
-      license_plate: "ABC-0001",
-      fine_amount: 60,
-      category_id: "categoryId",
-    });
-
-    await carsRepositoryInMemory.create({
-      name: "Car2",
-      description: "Description car.",
-      brand: "Car Brand2",
-      daily_rate: 80,
-      license_plate: "ABC-0002",
-      fine_amount: 40,
-      category_id: "categoryId2",
-    });
-
     const cars = await listAvailableCarsUseCase.execute({
       brand: "Car Brand2",
     });
 
-    expect(cars.length).toBe(2);
+    expect(cars).toEqual([car2]);
   });
 
   it("shold be able to list all available cars by category", async () => {
-    await carsRepositoryInMemory.create({
-      name: "Car1",
-      description: "Description car.",
-      brand: "Car Brand",
-      daily_rate: 100,
-      license_plate: "ABC-0001",
-      fine_amount: 60,
-      category_id: "categoryId",
-    });
-
-    await carsRepositoryInMemory.create({
-      name: "Car2",
-      description: "Description car.",
-      brand: "Car Brand2",
-      daily_rate: 80,
-      license_plate: "ABC-0002",
-      fine_amount: 40,
-      category_id: "categoryId2",
-    });
-
     const cars = await listAvailableCarsUseCase.execute({
       category_id: "categoryId2",
     });
 
-    expect(cars.length).toBe(2);
+    expect(cars).toEqual([car2]);
   });
 });
