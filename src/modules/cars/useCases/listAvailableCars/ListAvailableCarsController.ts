@@ -4,8 +4,8 @@ import { container } from "tsyringe";
 import { ListAvailableCarsUseCase } from "./ListAvailableCarsUseCase";
 
 class ListAvailableCarsController {
-  async handle(request: Request, response: Response): Promise<Response> {
-    const { name, brand, category_id } = request.query;
+  async handle(req: Request, res: Response): Promise<Response> {
+    const { name, brand, category_id } = req.query;
 
     const listAvailableCarsUseCase = container.resolve(
       ListAvailableCarsUseCase
@@ -17,7 +17,7 @@ class ListAvailableCarsController {
       category_id: category_id as string,
     });
 
-    return response.status(200).json(cars);
+    return res.status(200).json(cars);
   }
 }
 

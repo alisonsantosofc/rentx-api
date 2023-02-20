@@ -1,17 +1,33 @@
 import { CarsRepositoryMock } from "@modules/cars/repositories/mock/CarsRepositoryMock";
+import { SpecificationsRepositoryMock } from "@modules/cars/repositories/mock/SpecificationsRepositoryMock";
 import { AppError } from "@shared/errors/AppError";
 
 import { AddCarSpecificationsUseCase } from "./AddCarSpecificationsUseCase";
 
 let carsRepositoryMock: CarsRepositoryMock;
+let specificationsRepositoryMock: SpecificationsRepositoryMock;
 let addCarSpecificationsUseCase: AddCarSpecificationsUseCase;
 
 describe("Add Car Specifications", () => {
   beforeEach(() => {
     carsRepositoryMock = new CarsRepositoryMock();
+    specificationsRepositoryMock = new SpecificationsRepositoryMock();
     addCarSpecificationsUseCase = new AddCarSpecificationsUseCase(
-      carsRepositoryMock
+      carsRepositoryMock,
+      specificationsRepositoryMock
     );
+  });
+
+  it("shold not be able to add a specification to a non-existent car", () => {
+    expect(async () => {
+      const car_id = "car_id";
+      const specifications_id = ["specification_id_1", "specification_id_2"];
+
+      await addCarSpecificationsUseCase.execute({
+        car_id,
+        specifications_id,
+      });
+    }).rejects.toBeInstanceOf(AppError);
   });
 
   it("shold be able to add a new specification to the car", async () => {
@@ -25,23 +41,19 @@ describe("Add Car Specifications", () => {
       category_id: "categoryId",
     });
 
-    const specifications_id = ["specification_id_1", "specification_id_2"];
+    const specification = await specificationsRepositoryMock.create({
+      name: "Specification1",
+      description: "Specification description",
+    });
 
-    await addCarSpecificationsUseCase.execute({
+    const specifications_id = [specification.id];
+
+    const carUpdated = await addCarSpecificationsUseCase.execute({
       car_id: car.id,
       specifications_id,
     });
-  });
 
-  it("shold be able to add a new specification to a non-existent car", () => {
-    expect(async () => {
-      const car_id = "car_id";
-      const specifications_id = ["specification_id_1", "specification_id_2"];
-
-      await addCarSpecificationsUseCase.execute({
-        car_id,
-        specifications_id,
-      });
-    }).rejects.toBeInstanceOf(AppError);
+    expect(carUpdated).toHaveProperty("specifications");
+    expect(carUpdated.specifications).toEqual([specification]);
   });
 });

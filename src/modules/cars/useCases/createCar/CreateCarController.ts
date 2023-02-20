@@ -4,7 +4,7 @@ import { container } from "tsyringe";
 import { CreateCarUseCase } from "./CreateCarUseCase";
 
 class CreateCarController {
-  async handle(request: Request, response: Response): Promise<Response> {
+  async handle(req: Request, res: Response): Promise<Response> {
     const {
       name,
       description,
@@ -13,7 +13,7 @@ class CreateCarController {
       license_plate,
       fine_amount,
       category_id,
-    } = request.body;
+    } = req.body;
 
     const createCarUseCase = container.resolve(CreateCarUseCase);
 
@@ -27,7 +27,7 @@ class CreateCarController {
       category_id,
     });
 
-    return response.status(201).json(car);
+    return res.status(201).json(car);
   }
 }
 
