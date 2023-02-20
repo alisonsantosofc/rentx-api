@@ -1,18 +1,16 @@
-import { CategoriesRepositoryInMemory } from "@modules/cars/repositories/inMemory/CategoriesRepositoryInMemory";
+import { CategoriesRepositoryMock } from "@modules/cars/repositories/mock/CategoriesRepositoryMock";
 import { AppError } from "@shared/errors/AppError";
 
 import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 
+let categoriesRepositoryMock: CategoriesRepositoryMock;
 let createCategoryUseCase: CreateCategoryUseCase;
-let categoriesRepositoryInMemory: CategoriesRepositoryInMemory;
 
 describe("Create Category", () => {
   beforeEach(() => {
-    categoriesRepositoryInMemory = new CategoriesRepositoryInMemory();
+    categoriesRepositoryMock = new CategoriesRepositoryMock();
 
-    createCategoryUseCase = new CreateCategoryUseCase(
-      categoriesRepositoryInMemory
-    );
+    createCategoryUseCase = new CreateCategoryUseCase(categoriesRepositoryMock);
   });
 
   it("should be able to create a new category", async () => {
@@ -23,7 +21,7 @@ describe("Create Category", () => {
 
     await createCategoryUseCase.execute(category);
 
-    const categoryCreated = await categoriesRepositoryInMemory.findByName(
+    const categoryCreated = await categoriesRepositoryMock.findByName(
       category.name
     );
 

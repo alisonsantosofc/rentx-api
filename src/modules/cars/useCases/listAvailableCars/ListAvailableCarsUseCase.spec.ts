@@ -1,21 +1,19 @@
 import { Car } from "@modules/cars/infra/typeorm/entities/Car";
-import { CarsRepositoryInMemory } from "@modules/cars/repositories/inMemory/CarsRepositoryInMemory";
+import { CarsRepositoryMock } from "@modules/cars/repositories/mock/CarsRepositoryMock";
 
 import { ListAvailableCarsUseCase } from "./ListAvailableCarsUseCase";
 
-let carsRepositoryInMemory: CarsRepositoryInMemory;
+let carsRepositoryMock: CarsRepositoryMock;
 let listAvailableCarsUseCase: ListAvailableCarsUseCase;
 let car2: Car;
 
 describe("List Cars", () => {
   beforeEach(async () => {
-    carsRepositoryInMemory = new CarsRepositoryInMemory();
-    listAvailableCarsUseCase = new ListAvailableCarsUseCase(
-      carsRepositoryInMemory
-    );
+    carsRepositoryMock = new CarsRepositoryMock();
+    listAvailableCarsUseCase = new ListAvailableCarsUseCase(carsRepositoryMock);
 
     // create cars in memory before each
-    await carsRepositoryInMemory.create({
+    await carsRepositoryMock.create({
       name: "Car1",
       description: "Description car.",
       brand: "Car Brand",
@@ -25,7 +23,7 @@ describe("List Cars", () => {
       category_id: "categoryId",
     });
 
-    car2 = await carsRepositoryInMemory.create({
+    car2 = await carsRepositoryMock.create({
       name: "Car2",
       description: "Description car.",
       brand: "Car Brand2",
@@ -37,7 +35,7 @@ describe("List Cars", () => {
   });
 
   it("shold be able to list all available cars", async () => {
-    await carsRepositoryInMemory.create({
+    await carsRepositoryMock.create({
       name: "Car3",
       description: "Description car.",
       brand: "Car Brand3",

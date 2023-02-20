@@ -1,21 +1,21 @@
-import { CarsRepositoryInMemory } from "@modules/cars/repositories/inMemory/CarsRepositoryInMemory";
+import { CarsRepositoryMock } from "@modules/cars/repositories/mock/CarsRepositoryMock";
 import { AppError } from "@shared/errors/AppError";
 
-import { CreateCarSpecificationUseCase } from "./CreateCarSpecificationUseCase";
+import { AddCarSpecificationsUseCase } from "./AddCarSpecificationsUseCase";
 
-let carsRepositoryInMemory: CarsRepositoryInMemory;
-let createCarSpecificationUseCase: CreateCarSpecificationUseCase;
+let carsRepositoryMock: CarsRepositoryMock;
+let addCarSpecificationsUseCase: AddCarSpecificationsUseCase;
 
-describe("Create Car Specification", () => {
+describe("Add Car Specifications", () => {
   beforeEach(() => {
-    carsRepositoryInMemory = new CarsRepositoryInMemory();
-    createCarSpecificationUseCase = new CreateCarSpecificationUseCase(
-      carsRepositoryInMemory
+    carsRepositoryMock = new CarsRepositoryMock();
+    addCarSpecificationsUseCase = new AddCarSpecificationsUseCase(
+      carsRepositoryMock
     );
   });
 
   it("shold be able to add a new specification to the car", async () => {
-    const car = await carsRepositoryInMemory.create({
+    const car = await carsRepositoryMock.create({
       name: "Car1",
       description: "Description car.",
       brand: "Car Brand",
@@ -27,7 +27,7 @@ describe("Create Car Specification", () => {
 
     const specifications_id = ["specification_id_1", "specification_id_2"];
 
-    await createCarSpecificationUseCase.execute({
+    await addCarSpecificationsUseCase.execute({
       car_id: car.id,
       specifications_id,
     });
@@ -38,7 +38,7 @@ describe("Create Car Specification", () => {
       const car_id = "car_id";
       const specifications_id = ["specification_id_1", "specification_id_2"];
 
-      await createCarSpecificationUseCase.execute({
+      await addCarSpecificationsUseCase.execute({
         car_id,
         specifications_id,
       });

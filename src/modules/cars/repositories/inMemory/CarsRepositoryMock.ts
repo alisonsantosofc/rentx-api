@@ -3,7 +3,7 @@ import { Car } from "@modules/cars/infra/typeorm/entities/Car";
 
 import { ICarsRepository } from "../ICarsRepository";
 
-class CarsRepositoryInMemory implements ICarsRepository {
+class CarsRepositoryMock implements ICarsRepository {
   cars: Car[] = [];
 
   async create({
@@ -69,4 +69,4 @@ class CarsRepositoryInMemory implements ICarsRepository {
   }
 }
 
-export { CarsRepositoryInMemory };
+export { CarsRepositoryMock };

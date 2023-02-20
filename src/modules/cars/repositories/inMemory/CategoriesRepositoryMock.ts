@@ -5,7 +5,7 @@ import {
   ICreateCategoryDTO,
 } from "../ICategoriesRepository";
 
-class CategoriesRepositoryInMemory implements ICategoriesRepository {
+class CategoriesRepositoryMock implements ICategoriesRepository {
   private categories: Category[] = [];
 
   async create({ name, description }: ICreateCategoryDTO): Promise<void> {
@@ -32,4 +32,4 @@ class CategoriesRepositoryInMemory implements ICategoriesRepository {
   }
 }
 
-export { CategoriesRepositoryInMemory };
+export { CategoriesRepositoryMock };
