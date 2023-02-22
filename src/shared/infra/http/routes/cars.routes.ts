@@ -39,7 +39,7 @@ carsRoutes.post(
   "/images/:id",
   ensureAuthenticated,
   ensureAdmin,
-  uploadCarImages.array("images"),
+  uploadCarImages.array("image_files"),
   uploadCarImagesController.handle
 );
 

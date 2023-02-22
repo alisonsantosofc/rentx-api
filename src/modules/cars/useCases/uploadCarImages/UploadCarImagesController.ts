@@ -10,11 +10,11 @@ interface IFile {
 class UploadCarImagesController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    const images = req.files as IFile[];
+    const image_files = req.files as IFile[];
 
     const uploadCarImagesUseCase = container.resolve(UploadCarImagesUseCase);
 
-    const images_name = images.map((file) => file.filename);
+    const images_name = image_files.map((file) => file.filename);
 
     await uploadCarImagesUseCase.execute({ car_id: id, images_name });
 
