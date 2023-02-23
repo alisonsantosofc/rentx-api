@@ -1,12 +1,13 @@
 import { DataSource } from "typeorm";
 
-export const postgresDataSource = new DataSource({
+const postgresDataSource = new DataSource({
   type: "postgres",
-  host: "localhost",
+  host: process.env.NODE_ENV === "test" ? "localhost" : "localhost",
   port: 5432,
   username: "docker",
   password: "postgresdb",
-  database: "autorenter_db",
+  database:
+    process.env.NODE_ENV === "test" ? "autorenter_db_test" : "autorenter_db",
   entities: ["./src/modules/*/infra/typeorm/entities/*.ts"],
   migrations: ["./src/shared/infra/typeorm/migrations/*.ts"],
 });
@@ -19,3 +20,9 @@ postgresDataSource
   .catch((err) => {
     console.error("Error during postgres initialization", err);
   });
+
+function getPostgresDS() {
+  return postgresDataSource;
+}
+
+export { getPostgresDS };

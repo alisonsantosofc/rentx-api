@@ -2,7 +2,7 @@ import { Repository } from "typeorm";
 
 import { ICreateRentalDTO } from "@modules/rentals/dtos/ICreateRentalDTO";
 import { IRentalsRepository } from "@modules/rentals/repositories/IRentalsRepository";
-import { postgresDataSource } from "@shared/infra/typeorm";
+import { getPostgresDS } from "@shared/infra/typeorm";
 
 import { Rental } from "../entities/Rental";
 
@@ -10,7 +10,7 @@ class RentalsRepository implements IRentalsRepository {
   private repository: Repository<Rental>;
 
   constructor() {
-    this.repository = postgresDataSource.getRepository(Rental);
+    this.repository = getPostgresDS().getRepository(Rental);
   }
 
   async findOpenRentalByCar(car_id: string): Promise<Rental> {

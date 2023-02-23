@@ -4,7 +4,7 @@ import {
   ICategoriesRepository,
   ICreateCategoryDTO,
 } from "@modules/cars/repositories/ICategoriesRepository";
-import { postgresDataSource } from "@shared/infra/typeorm/index";
+import { getPostgresDS } from "@shared/infra/typeorm/index";
 
 import { Category } from "../entities/Category";
 
@@ -12,7 +12,7 @@ class CategoriesRepository implements ICategoriesRepository {
   private repository: Repository<Category>;
 
   constructor() {
-    this.repository = postgresDataSource.getRepository(Category);
+    this.repository = getPostgresDS().getRepository(Category);
   }
 
   async create({ name, description }: ICreateCategoryDTO): Promise<void> {

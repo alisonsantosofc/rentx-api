@@ -4,7 +4,7 @@ import {
   ICreateSpecificationDTO,
   ISpecificationsRepository,
 } from "@modules/cars/repositories/ISpecificationsRepository";
-import { postgresDataSource } from "@shared/infra/typeorm/index";
+import { getPostgresDS } from "@shared/infra/typeorm/index";
 
 import { Specification } from "../entities/Specification";
 
@@ -12,7 +12,7 @@ class SpecificationsRepository implements ISpecificationsRepository {
   private repository: Repository<Specification>;
 
   constructor() {
-    this.repository = postgresDataSource.getRepository(Specification);
+    this.repository = getPostgresDS().getRepository(Specification);
   }
 
   async create({
