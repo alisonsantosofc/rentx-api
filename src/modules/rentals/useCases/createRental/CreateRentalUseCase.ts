@@ -1,19 +1,18 @@
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
 import { inject, injectable } from "tsyringe";
 
 import { ICreateRentalDTO } from "@modules/rentals/dtos/ICreateRentalDTO";
 import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 import { IRentalsRepository } from "@modules/rentals/repositories/IRentalsRepository";
+import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { AppError } from "@shared/errors/AppError";
 
-dayjs.extend(utc);
-
-// @injectable()
+@injectable()
 class CreateRentalUseCase {
   constructor(
-    // @inject("RentalsRepository")
-    private rentalsRepository: IRentalsRepository
+    @inject("RentalsRepository")
+    private rentalsRepository: IRentalsRepository,
+    @inject("DayjsDateProvider")
+    private dateProvider: IDateProvider
   ) {}
 
   async execute({
@@ -39,16 +38,11 @@ class CreateRentalUseCase {
 
     const minimumHours = 24;
 
-    const expectedReturnDateFormat = dayjs(expected_return_date)
-      .utc()
-      .local()
-      .format();
+    const dateNow = this.dateProvider.dateNow();
 
-    const dateNowFormat = dayjs().utc().local().format();
-
-    const dateDiff = dayjs(expectedReturnDateFormat).diff(
-      dateNowFormat,
-      "hours"
+    const dateDiff = this.dateProvider.compareInHours(
+      dateNow,
+      expected_return_date
     );
 
     if (dateDiff < minimumHours) {

@@ -1,19 +1,26 @@
 import dayjs from "dayjs";
 
 import { RentalsRepositoryMock } from "@modules/rentals/repositories/mock/RentalsRepositoryMock";
+import { DayjsDateProvider } from "@shared/container/providers/DateProvider/implementations/DayjsDateProvider";
 import { AppError } from "@shared/errors/AppError";
 
 import { CreateRentalUseCase } from "./CreateRentalUseCase";
 
 let createRentalUseCase: CreateRentalUseCase;
 let rentalsRepositoryMock: RentalsRepositoryMock;
+let dayjsDateProvider: DayjsDateProvider;
 
 const todayAfter24Hours = dayjs().add(1, "day").toDate();
 
 describe("Create Rental", () => {
   beforeEach(() => {
     rentalsRepositoryMock = new RentalsRepositoryMock();
-    createRentalUseCase = new CreateRentalUseCase(rentalsRepositoryMock);
+    dayjsDateProvider = new DayjsDateProvider();
+
+    createRentalUseCase = new CreateRentalUseCase(
+      rentalsRepositoryMock,
+      dayjsDateProvider
+    );
   });
 
   it("should be able to create a new rental", async () => {

@@ -1,10 +1,22 @@
 import { Request, Response } from "express";
+import { container } from "tsyringe";
+
+import { CreateRentalUseCase } from "./CreateRentalUseCase";
 
 class CreateRentalController {
   async handle(req: Request, res: Response): Promise<Response> {
-    console.log("Create a new controller class.");
+    const { car_id, expected_return_date } = req.body;
+    const { id } = req.user;
 
-    return res.send();
+    const createRentalUseCase = container.resolve(CreateRentalUseCase);
+
+    const rental = await createRentalUseCase.execute({
+      car_id,
+      user_id: id,
+      expected_return_date,
+    });
+
+    return res.status(201).json(rental);
   }
 }
 

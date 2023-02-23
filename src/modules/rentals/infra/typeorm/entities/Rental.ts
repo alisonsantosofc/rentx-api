@@ -22,13 +22,13 @@ class Rental {
   start_date: Date;
 
   @Column()
-  end_date: Date;
+  end_date?: Date;
 
   @Column()
   expected_return_date: Date;
 
   @Column()
-  total: number;
+  total?: number;
 
   @CreateDateColumn()
   created_at: Date;
