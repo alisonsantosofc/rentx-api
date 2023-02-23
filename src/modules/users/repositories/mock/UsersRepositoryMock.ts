@@ -19,6 +19,7 @@ class UsersRepositoryMock implements IUsersRepository {
       email,
       password,
       driver_license,
+      created_at: new Date(),
     });
 
     this.users.push(user);
