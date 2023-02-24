@@ -16,4 +16,5 @@ async function create() {
 
 create().then(() => {
   console.log("Main user admin created!");
+  postgresDataSource.destroy();
 });
