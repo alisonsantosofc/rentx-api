@@ -1,6 +1,6 @@
 import { DataSource } from "typeorm";
 
-const postgresDataSource = new DataSource({
+export const postgresDataSource = new DataSource({
   type: "postgres",
   host: process.env.NODE_ENV === "test" ? "localhost" : "localhost",
   port: 5432,
@@ -20,9 +20,3 @@ postgresDataSource
   .catch((err) => {
     console.error("Error during postgres initialization", err);
   });
-
-function getPostgresDS() {
-  return postgresDataSource;
-}
-
-export { getPostgresDS };

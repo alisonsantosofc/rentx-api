@@ -2,7 +2,7 @@ import { Repository } from "typeorm";
 
 import { ICreateUserDTO } from "@modules/users/dtos/ICreateUserDTO";
 import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
-import { getPostgresDS } from "@shared/infra/typeorm/index";
+import { postgresDataSource } from "@shared/infra/typeorm/index";
 
 import { User } from "../entities/User";
 
@@ -10,7 +10,7 @@ class UsersRepository implements IUsersRepository {
   private repository: Repository<User>;
 
   constructor() {
-    this.repository = getPostgresDS().getRepository(User);
+    this.repository = postgresDataSource.getRepository(User);
   }
 
   async create({
