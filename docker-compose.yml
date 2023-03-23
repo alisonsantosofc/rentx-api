@@ -23,7 +23,7 @@ services:
     ports:
       - 3333:3333
     volumes:
-      - .:/usr/autorenter-api
+      - .:/usr/app
     network_mode: host
     # links:
     #   - database
