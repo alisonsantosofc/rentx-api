@@ -13,7 +13,6 @@ services:
       - POSTGRES_DB=autorenter_db
     volumes:
       - pgdata:/data/postgres
-    network_mode: host
 
   app:
     build: .
@@ -24,11 +23,10 @@ services:
       - 3333:3333
     volumes:
       - .:/usr/app
-    network_mode: host
-    # links:
-    #   - database
-    # depends_on:
-    #   - database
+    links:
+      - database
+    depends_on:
+      - database
 
 volumes:
   pgdata:
