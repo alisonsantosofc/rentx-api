@@ -40,6 +40,12 @@ class RentalsRepositoryMock implements IRentalsRepository {
 
     return rentalOpenToUser;
   }
+
+  async findById(id: string): Promise<Rental> {
+    const rental = this.rentals.find((rental) => rental.id === id);
+
+    return rental;
+  }
 }
 
 export { RentalsRepositoryMock };
