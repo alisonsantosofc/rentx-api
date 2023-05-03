@@ -28,8 +28,6 @@ class CreateRentalUseCase {
     );
 
     if (rentalOpenToCar) {
-      console.log(rentalOpenToCar);
-
       throw new AppError("Car is rented.");
     }
 
