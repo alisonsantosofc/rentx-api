@@ -66,3 +66,10 @@ Apenas usuários administradores devem ter permissão para realizar o cadastro d
 - Ao realizar a devolução, deve ser calculado o total do aluguel.
 - Caso o horário de devolução seja superior ao horário previsto de entrega, deve ser cobrado uma multa proporcional aos dias de atraso.
 - Caso haja multa, deverá ser somado ao total do aluguel.
+
+# Listagem de alugueis para usuário
+
+**RF**
+Deve ser possível realizar a busca de todos os alugueis para o usuário.
+
+**RN**
