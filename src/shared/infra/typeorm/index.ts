@@ -6,8 +6,7 @@ export const postgresDataSource = new DataSource({
   port: 5432,
   username: "docker",
   password: "postgresdb",
-  database:
-    process.env.NODE_ENV === "test" ? "autorenter_db_test" : "autorenter_db",
+  database: process.env.NODE_ENV === "test" ? "rentx_db_test" : "rentx_db",
   entities: ["./src/modules/*/infra/typeorm/entities/*.ts"],
   migrations: ["./src/shared/infra/typeorm/migrations/*.ts"],
 });
