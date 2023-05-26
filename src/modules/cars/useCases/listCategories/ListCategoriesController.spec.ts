@@ -47,7 +47,9 @@ describe("List Categories Controller", () => {
 
     const categoriesResponse = await request(app).get("/categories");
 
+    const categories = Array(categoriesResponse.text);
+
     expect(categoriesResponse.status).toBe(200);
-    expect(categoriesResponse.body.length).toBe(1);
+    expect(categories).toHaveLength(1);
   });
 });

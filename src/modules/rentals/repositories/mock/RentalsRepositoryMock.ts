@@ -46,6 +46,14 @@ class RentalsRepositoryMock implements IRentalsRepository {
 
     return rental;
   }
+
+  async findByUser(user_id: string): Promise<Rental[]> {
+    const rentalsByUser = this.rentals.filter(
+      (rental) => rental.user_id === user_id
+    );
+
+    return rentalsByUser;
+  }
 }
 
 export { RentalsRepositoryMock };
