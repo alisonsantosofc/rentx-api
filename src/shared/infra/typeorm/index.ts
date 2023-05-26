@@ -4,7 +4,7 @@ export const postgresDataSource = new DataSource({
   type: "postgres",
   host: process.env.NODE_ENV === "test" ? "localhost" : "localhost",
   port: 5432,
-  username: "docker",
+  username: "postgres",
   password: "postgresdb",
   database: process.env.NODE_ENV === "test" ? "rentx_db_test" : "rentx_db",
   entities: ["./src/modules/*/infra/typeorm/entities/*.ts"],
