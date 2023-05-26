@@ -2,11 +2,11 @@ import { DataSource } from "typeorm";
 
 export const postgresDataSource = new DataSource({
   type: "postgres",
-  host: process.env.NODE_ENV === "test" ? "localhost" : "localhost",
+  host: process.env.NODE_ENV === "test" ? "localhost" : "database",
   port: 5432,
-  username: "postgres",
-  password: "postgresdb",
-  database: process.env.NODE_ENV === "test" ? "rentx_db_test" : "rentx_db",
+  username: "docker",
+  password: "rentx",
+  database: process.env.NODE_ENV === "test" ? "rentx_test" : "rentx",
   entities: ["./src/modules/*/infra/typeorm/entities/*.ts"],
   migrations: ["./src/shared/infra/typeorm/migrations/*.ts"],
 });
