@@ -21,7 +21,6 @@ class CarsRepository implements ICarsRepository {
     license_plate,
     fine_amount,
     category_id,
-    available,
     specifications,
     id,
   }: ICreateCarDTO): Promise<Car> {
@@ -33,7 +32,6 @@ class CarsRepository implements ICarsRepository {
       daily_rate,
       license_plate,
       category_id,
-      available: available === false ? available : true,
       specifications,
       id,
     });
