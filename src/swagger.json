@@ -74,12 +74,12 @@
         }
       }
     },
-
     "/categories/import": {
       "post": {
         "tags": ["Categories"],
         "summary": "Upload Categories",
         "description": "Upload categories from a csv file.",
+        "security": [{"bearerAuth": []}],
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -110,6 +110,7 @@
         "tags": ["Specifications"],
         "summary": "Create Specification",
         "description": "Create a new specification.",
+        "security": [{"bearerAuth": []}],
         "requestBody": {
           "content": {
             "application/json": {
@@ -125,6 +126,78 @@
           },
           "400": {
             "description": "Specification already exists."
+          }
+        }
+      }
+    },
+
+    "/cars": {
+      "post": {
+        "tags": ["Cars"],
+        "summary": "Create Car",
+        "description": "Create a new car.",
+        "security": [{"bearerAuth": []}],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Car"
+              }
+            }
+          }
+        },
+        "responses": {
+          "responses": {
+            "201": {
+              "description": "Created."
+            },
+            "400": {
+              "description": "Car already exists."
+            }
+          }
+        }
+      }
+    },
+    "/cars/images/{id}": {
+      "post": {
+        "tags": ["Cars"],
+        "summary": "Upload Car Images",
+        "description": "Updates images of a car.",
+        "security": [{"bearerAuth": []}],
+        "parameters": [
+          { 
+            "name": "id",
+            "in": "path",
+            "description": "Car id.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "image_files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "responses": {
+            "201": {
+              "description": "Uploaded."
+            }
           }
         }
       }
@@ -171,6 +244,32 @@
           "type": "string"
         },
         "description": {
+          "type": "string"
+        }
+      }
+    },
+    "Car": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "daily_rate": {
+          "type": "number"
+        },
+        "license_plate": {
+          "type": "string"
+        },
+        "fine_amount": {
+          "type": "number"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "category_id": {
           "type": "string"
         }
       }
