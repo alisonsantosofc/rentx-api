@@ -16,7 +16,7 @@ describe("Create Category Controller", () => {
 
     await postgresDataSource.query(
       `INSERT INTO USERS(id, name, email, password, driver_license, admin, created_at)
-        values('${id}', 'admin', 'admin@autorenter.com', '${hashedPassword}', 'driver_license', true, 'now()')
+        values('${id}', 'admin', 'admin@rentx.com', '${hashedPassword}', 'driver_license', true, 'now()')
       `
     );
   });
@@ -28,7 +28,7 @@ describe("Create Category Controller", () => {
 
   it("should be able to create a new category", async () => {
     const sessionResponse = await request(app).post("/sessions").send({
-      email: "admin@autorenter.com",
+      email: "admin@rentx.com",
       password: "admin001",
     });
 
@@ -49,7 +49,7 @@ describe("Create Category Controller", () => {
 
   it("should not be able to create a new category with name exists", async () => {
     const sessionResponse = await request(app).post("/sessions").send({
-      email: "admin@autorenter.com",
+      email: "admin@rentx.com",
       password: "admin001",
     });
 

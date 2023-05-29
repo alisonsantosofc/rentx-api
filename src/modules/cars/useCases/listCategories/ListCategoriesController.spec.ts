@@ -16,20 +16,19 @@ describe("List Categories Controller", () => {
 
     await postgresDataSource.query(
       `INSERT INTO USERS(id, name, email, password, driver_license, admin, created_at)
-        values('${id}', 'admin', 'admin@autorenter.com', '${hashedPassword}', 'driver_license', true, 'now()')
+        values('${id}', 'admin', 'admin@rentx.com', '${hashedPassword}', 'driver_license', true, 'now()')
       `
     );
   });
 
   afterAll(async () => {
-    // commented because it was preventing the test from passing
-    // await postgresDataSource.dropDatabase();
+    await postgresDataSource.dropDatabase();
     await postgresDataSource.destroy();
   });
 
   it("should be able to list all categories", async () => {
     const sessionResponse = await request(app).post("/sessions").send({
-      email: "admin@autorenter.com",
+      email: "admin@rentx.com",
       password: "admin001",
     });
 
