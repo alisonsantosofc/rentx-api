@@ -70,6 +70,15 @@ Apenas usuários administradores devem ter permissão para realizar o cadastro d
 # Listagem de alugueis para usuário
 
 **RF**
-Deve ser possível realizar a busca de todos os alugueis para o usuário.
+- Deve ser possível realizar a busca de todos os alugueis para o usuário.
+
+# Recuperação de Senha
+
+**RF**
+- Deve ser possível o usuário recuperar a senha informando o email.
+- O usuário deve receber um email com o passo a passo para a recuperação da senha.
+- O usuário deve conseguir inserir uma nova senha.
 
 **RN**
+- O usuário precisa informar uma nova senha.
+- O link enviado para a recuperação deve expirar em 3 horas.

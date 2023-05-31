@@ -17,6 +17,9 @@ app.use(express.json());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSetup));
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require("dotenv").config();
+
 app.use(routes);
 
 app.use(

@@ -5,7 +5,7 @@ import { IDateProvider } from "../IDateProvider";
 
 dayjs.extend(utc);
 
-class DateProvider implements IDateProvider {
+class DayjsDateProvider implements IDateProvider {
   dateNow(): Date {
     return dayjs().toDate();
   }
@@ -31,6 +31,14 @@ class DateProvider implements IDateProvider {
   addDays(days: number): Date {
     return dayjs().add(days, "days").toDate();
   }
+
+  addHours(hours: number): Date {
+    return dayjs().add(hours, "hour").toDate();
+  }
+
+  compareIfBefore(start_date: Date, end_date: Date): boolean {
+    return dayjs(start_date).isBefore(end_date);
+  }
 }
 
-export { DateProvider };
+export { DayjsDateProvider };
